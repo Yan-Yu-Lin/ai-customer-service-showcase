@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 客服系統 - 簡化版架構說明</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">AI 客服系統專案</h1>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">系統架構</a></li>
+                <li><a href="development-log.html">開發日誌</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>AI 客服系統 - 簡化版架構說明</h1>
+            <p class="subtitle">為兩人團隊設計的簡化版 AI 客服系統架構</p>
+        </header>
+
+        <section class="overview">
+            <h2>系統概述</h2>
+            <p>這是一個為兩人團隊設計的簡化版 AI 客服系統架構。整個系統分為三個主要部分，全部使用 JavaScript/TypeScript 開發，部署在單一伺服器上。</p>
+        </section>
+
+        <section class="architecture">
+            <h2>系統架構圖</h2>
+            <div class="architecture-diagram">
+                <!-- Customer Website Layer -->
+                <div class="arch-layer customer-layer">
+                    <h3>客戶網站</h3>
+                    <div class="component widget-component">
+                        <code>&lt;script src="widget.js?key=xxx"&gt;</code>
+                        <p>聊天小工具 (Widget)</p>
+                    </div>
+                </div>
+
+                <!-- API Connection -->
+                <div class="connection-arrow">
+                    <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#007AFF" />
+                            </marker>
+                        </defs>
+                        <line x1="50" y1="0" x2="50" y2="35" stroke="#007AFF" stroke-width="2" marker-end="url(#arrowhead)" />
+                    </svg>
+                    <span class="connection-label">HTTPS API 請求</span>
+                </div>
+
+                <!-- Server Layer -->
+                <div class="arch-layer server-layer">
+                    <h3>單一 Node.js 伺服器</h3>
+                    <div class="server-components">
+                        <div class="component">
+                            <h4>Express API</h4>
+                            <p>/api/*</p>
+                        </div>
+                        <div class="component">
+                            <h4>靜態檔案服務</h4>
+                            <p>/admin/*</p>
+                        </div>
+                    </div>
+                    <div class="business-logic">
+                        <h4>業務邏輯層</h4>
+                        <ul>
+                            <li>認證管理</li>
+                            <li>文檔處理</li>
+                            <li>AI 對話處理</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- External Services -->
+                <div class="connection-arrow">
+                    <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="50" y1="0" x2="50" y2="35" stroke="#007AFF" stroke-width="2" marker-end="url(#arrowhead)" />
+                    </svg>
+                </div>
+
+                <div class="arch-layer external-layer">
+                    <h3>外部服務</h3>
+                    <div class="external-components">
+                        <div class="component">
+                            <h4>PostgreSQL</h4>
+                            <p>資料庫</p>
+                        </div>
+                        <div class="component">
+                            <h4>Anthropic API</h4>
+                            <p>(Claude)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="components">
+            <h2>第一部分：聊天小工具 (Chat Widget)</h2>
+            
+            <div class="component-detail">
+                <h3>功能說明</h3>
+                <p>聊天小工具是一個輕量級的 JavaScript 檔案，客戶只需要在他們的網站加入一行程式碼就能使用。這個小工具會在網頁右下角顯示一個聊天按鈕，點擊後展開成聊天視窗，訪客可以在這裡提問並獲得 AI 回答。</p>
+
+                <h3>技術實現</h3>
+                <p><strong>使用 Vue 3 + TypeScript 開發</strong>，最終編譯成一個單一的 JavaScript 檔案（約 150-200KB）。這個檔案包含了所有必要的樣式和邏輯，不需要額外載入 CSS 或其他資源。</p>
+
+                <div class="code-block">
+                    <pre><code>// 客戶嵌入的程式碼
+&lt;script src="https://your-domain.com/widget.js?key=customer_api_key"&gt;&lt;/script&gt;</code></pre>
+                </div>
+
+                <h3>核心功能模組</h3>
+                <div class="module-grid">
+                    <div class="module-card">
+                        <h4>1. 初始化模組</h4>
+                        <ul>
+                            <li>檢測網頁載入狀態，確保 DOM 已準備好</li>
+                            <li>從 URL 參數中提取 API key</li>
+                            <li>創建聊天容器並插入到頁面中</li>
+                            <li>載入客戶的自定義設定（顏色、位置、歡迎語等）</li>
+                        </ul>
+                    </div>
+
+                    <div class="module-card">
+                        <h4>2. UI 介面模組</h4>
+                        <ul>
+                            <li>聊天按鈕：固定在頁面右下角，可自定義圖標和顏色</li>
+                            <li>聊天視窗：包含訊息列表、輸入框、發送按鈕</li>
+                            <li>響應式設計：自動適配手機、平板、桌面版</li>
+                            <li>動畫效果：平滑的展開/收起動畫</li>
+                        </ul>
+                    </div>
+
+                    <div class="module-card">
+                        <h4>3. 通訊模組</h4>
+                        <ul>
+                            <li>使用 Fetch API 發送 HTTPS 請求</li>
+                            <li>自動重試機制：網路錯誤時自動重試</li>
+                            <li>請求去抖動：避免用戶快速點擊造成重複請求</li>
+                            <li>錯誤處理：友好的錯誤提示訊息</li>
+                        </ul>
+                    </div>
+
+                    <div class="module-card">
+                        <h4>4. 狀態管理</h4>
+                        <ul>
+                            <li>使用 Vue 3 的 Composition API 管理狀態</li>
+                            <li>本地儲存對話歷史（使用 localStorage）</li>
+                            <li>記住用戶偏好設定（是否自動展開等）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>安全考量</h3>
+                <ul class="security-list">
+                    <li>所有請求都必須包含有效的 API key</li>
+                    <li>使用 CORS 限制只允許已註冊的域名訪問</li>
+                    <li>對用戶輸入進行基本的 XSS 防護</li>
+                    <li>限制訊息長度和請求頻率</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="components">
+            <h2>第二部分：客戶管理介面 (Admin Dashboard)</h2>
+            
+            <div class="component-detail">
+                <h3>功能說明</h3>
+                <p>這是一個 Web 應用程式，讓使用我們服務的公司可以管理他們的 AI 客服。主要功能包括：上傳和管理知識庫文檔、查看對話記錄、自定義聊天小工具外觀、獲取嵌入代碼等。</p>
+
+                <h3>技術實現</h3>
+                <p>使用 <strong>Vue 3 + Vue Router + Pinia</strong> 構建的單頁應用（SPA）。使用 <strong>Element Plus</strong> 作為 UI 元件庫，加快開發速度。所有的 API 請求都通過 JWT 進行身份驗證。</p>
+
+                <h3>主要頁面</h3>
+                <div class="pages-grid">
+                    <div class="page-card">
+                        <h4>1. 登入/註冊頁面</h4>
+                        <ul>
+                            <li>簡單的郵箱密碼登入</li>
+                            <li>註冊時自動生成 API key</li>
+                            <li>忘記密碼功能（發送重置郵件）</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-card">
+                        <h4>2. 儀表板首頁</h4>
+                        <ul>
+                            <li>顯示關鍵指標：今日對話數、活躍用戶數、熱門問題</li>
+                            <li>最近的對話列表</li>
+                            <li>快速操作入口</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-card">
+                        <h4>3. 知識庫管理</h4>
+                        <ul>
+                            <li>文檔上傳介面：支援拖放上傳，支援 TXT、PDF、DOCX 格式</li>
+                            <li>文檔列表：顯示所有已上傳的文檔，可以查看、編輯、刪除</li>
+                            <li>文檔編輯器：簡單的富文本編輯器，可以直接編輯文檔內容</li>
+                            <li>Q&A 管理：手動添加問答對，設定優先級</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-card">
+                        <h4>4. 對話記錄</h4>
+                        <ul>
+                            <li>對話列表：按時間排序，可以搜尋和篩選</li>
+                            <li>對話詳情：查看完整的對話內容，包括時間戳記</li>
+                            <li>匯出功能：將對話記錄匯出為 CSV 或 Excel</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-card">
+                        <h4>5. 外觀設定</h4>
+                        <ul>
+                            <li>主題顏色：選擇聊天小工具的主色調</li>
+                            <li>位置設定：左下角或右下角</li>
+                            <li>歡迎訊息：自定義機器人的開場白</li>
+                            <li>公司資訊：上傳 logo，設定公司名稱</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-card">
+                        <h4>6. 整合設定</h4>
+                        <ul>
+                            <li>顯示 API key（可以重新生成）</li>
+                            <li>生成嵌入代碼，一鍵複製</li>
+                            <li>白名單域名：限制哪些網站可以使用</li>
+                            <li>Webhook 設定：當有新對話時通知</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="components">
+            <h2>第三部分：後端服務 (Backend API)</h2>
+            
+            <div class="component-detail">
+                <h3>功能說明</h3>
+                <p>後端是整個系統的核心，負責處理所有的業務邏輯。它提供 RESTful API 給前端使用，管理資料庫操作，並與 Anthropic API 溝通來生成 AI 回答。</p>
+
+                <h3>技術棧</h3>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <strong>Node.js + Express.js</strong>
+                        <span>Web 框架</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>TypeScript</strong>
+                        <span>類型安全</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>PostgreSQL</strong>
+                        <span>主資料庫</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>JWT</strong>
+                        <span>身份驗證</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Multer</strong>
+                        <span>檔案上傳</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>PDF-parse</strong>
+                        <span>PDF 文字提取</span>
+                    </div>
+                </div>
+
+                <h3>專案結構</h3>
+                <div class="code-block">
+                    <pre><code>backend/
+├── src/
+│   ├── routes/          # API 路由定義
+│   │   ├── auth.ts      # 認證相關：登入、註冊、重置密碼
+│   │   ├── documents.ts # 文檔管理：上傳、編輯、刪除
+│   │   ├── chat.ts      # 聊天相關：處理對話請求
+│   │   └── settings.ts  # 設定相關：更新外觀、獲取設定
+│   │
+│   ├── services/        # 業務邏輯層
+│   │   ├── ai.ts        # AI 服務：調用 Anthropic API
+│   │   ├── document.ts  # 文檔處理：解析、分段、搜尋
+│   │   ├── auth.ts      # 認證服務：生成 JWT、驗證
+│   │   └── storage.ts   # 檔案儲存：本地或雲端儲存
+│   │
+│   ├── models/          # 資料模型
+│   ├── middleware/      # 中介軟體
+│   └── utils/           # 工具函數
+│
+├── migrations/          # 資料庫遷移檔案
+├── tests/              # 測試檔案
+└── package.json</code></pre>
+                </div>
+
+                <h3>核心 API 端點</h3>
+                <div class="api-endpoints">
+                    <div class="endpoint-group">
+                        <h4>認證相關</h4>
+                        <ul>
+                            <li><code>POST /api/auth/register</code> - 註冊新用戶</li>
+                            <li><code>POST /api/auth/login</code> - 用戶登入</li>
+                            <li><code>POST /api/auth/refresh</code> - 更新 JWT token</li>
+                            <li><code>POST /api/auth/reset-password</code> - 重置密碼</li>
+                        </ul>
+                    </div>
+
+                    <div class="endpoint-group">
+                        <h4>文檔管理</h4>
+                        <ul>
+                            <li><code>GET /api/documents</code> - 獲取文檔列表</li>
+                            <li><code>POST /api/documents/upload</code> - 上傳新文檔</li>
+                            <li><code>PUT /api/documents/:id</code> - 更新文檔內容</li>
+                            <li><code>DELETE /api/documents/:id</code> - 刪除文檔</li>
+                        </ul>
+                    </div>
+
+                    <div class="endpoint-group">
+                        <h4>聊天功能</h4>
+                        <ul>
+                            <li><code>POST /api/chat/message</code> - 發送聊天訊息</li>
+                            <li><code>GET /api/chat/conversations</code> - 獲取對話列表</li>
+                            <li><code>GET /api/chat/conversations/:id</code> - 獲取對話詳情</li>
+                            <li><code>GET /api/chat/history/:visitorId</code> - 獲取訪客歷史</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>AI 整合邏輯</h3>
+                <div class="ai-workflow">
+                    <div class="workflow-step">
+                        <span class="step-number">1</span>
+                        <h4>驗證請求</h4>
+                        <ul>
+                            <li>檢查 API key 是否有效</li>
+                            <li>檢查請求來源是否在白名單中</li>
+                            <li>檢查請求頻率是否超限</li>
+                        </ul>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">2</span>
+                        <h4>搜尋相關內容</h4>
+                        <ul>
+                            <li>從資料庫中搜尋相關的文檔片段</li>
+                            <li>搜尋匹配的 Q&A 對</li>
+                            <li>獲取最近的對話上下文</li>
+                        </ul>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">3</span>
+                        <h4>構建 AI 提示詞</h4>
+                        <div class="code-block">
+                            <pre><code>const prompt = `你是 ${companyName} 的客服助理。
+請根據以下資訊回答客戶問題...`</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">4</span>
+                        <h4>調用 Anthropic API</h4>
+                        <div class="code-block">
+                            <pre><code>const response = await anthropic.messages.create({
+    model: 'claude-3-5-sonnet-latest',
+    max_tokens: 500,
+    messages: [...]
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">5</span>
+                        <h4>後處理和儲存</h4>
+                        <ul>
+                            <li>檢查回應內容的安全性</li>
+                            <li>儲存對話記錄到資料庫</li>
+                            <li>更新使用統計</li>
+                            <li>返回格式化的回應</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="deployment">
+            <h2>部署考量</h2>
+            
+            <div class="deployment-grid">
+                <div class="deployment-card">
+                    <h3>伺服器配置</h3>
+                    <ul>
+                        <li>2-4 核心 CPU</li>
+                        <li>4-8GB RAM</li>
+                        <li>50GB SSD 儲存空間</li>
+                        <li>Ubuntu 22.04 LTS</li>
+                    </ul>
+                </div>
+
+                <div class="deployment-card">
+                    <h3>必要服務</h3>
+                    <ul>
+                        <li>Node.js 18+ (使用 nvm 管理版本)</li>
+                        <li>PostgreSQL 14+</li>
+                        <li>Nginx (反向代理和靜態檔案服務)</li>
+                        <li>PM2 (程序管理)</li>
+                        <li>Let's Encrypt (SSL 證書)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>成本估算</h3>
+            <div class="cost-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>成本</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>VPS 伺服器</td>
+                            <td>$20-40/月</td>
+                        </tr>
+                        <tr>
+                            <td>PostgreSQL</td>
+                            <td>包含在 VPS 中</td>
+                        </tr>
+                        <tr>
+                            <td>Anthropic API</td>
+                            <td>約 $0.01-0.02 per 1000 tokens</td>
+                        </tr>
+                        <tr>
+                            <td>域名</td>
+                            <td>$15/年</td>
+                        </tr>
+                        <tr>
+                            <td>SSL 證書</td>
+                            <td>免費（Let's Encrypt）</td>
+                        </tr>
+                        <tr class="total">
+                            <td><strong>總計</strong></td>
+                            <td><strong>初期每月成本約 $30-50</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="timeline">
+            <h2>開發優先順序</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>第一週：基礎設置</h3>
+                        <ul>
+                            <li>建立專案結構</li>
+                            <li>設定開發環境</li>
+                            <li>實作用戶認證</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>第二週：核心功能</h3>
+                        <ul>
+                            <li>文檔上傳和解析</li>
+                            <li>基本的聊天 API</li>
+                            <li>簡單的管理介面</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>第三週：聊天小工具</h3>
+                        <ul>
+                            <li>開發和測試小工具</li>
+                            <li>實作基本的對話功能</li>
+                            <li>整合 Anthropic API</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>第四週：完善和部署</h3>
+                        <ul>
+                            <li>完善管理介面</li>
+                            <li>測試和除錯</li>
+                            <li>部署到生產環境</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>AI 客服系統專案 &copy; 2025 - 康和證券合作專案</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
