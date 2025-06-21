@@ -19,8 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add active class to navigation based on scroll position
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
+    const tocLinks = document.querySelectorAll('.toc-list a');
     
     function updateActiveNav() {
         const scrollPosition = window.scrollY + 100;
@@ -31,7 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const id = section.getAttribute('id');
             
             if (scrollPosition >= top && scrollPosition < top + height) {
+                // Update main nav
                 navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Update TOC nav
+                tocLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active');
@@ -48,6 +58,26 @@ document.addEventListener('DOMContentLoaded', function() {
             clearTimeout(scrollTimer);
         }
         scrollTimer = setTimeout(updateActiveNav, 50);
+    });
+    
+    // Initial call to set active state
+    updateActiveNav();
+    
+    // TOC link click handling with offset for fixed header
+    tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                const offset = 80; // Account for fixed header
+                const targetPosition = targetElement.offsetTop - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
 
     // Code block copy functionality
