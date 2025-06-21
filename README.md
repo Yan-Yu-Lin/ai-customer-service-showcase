@@ -12,7 +12,11 @@
 1. 推送到 GitHub 儲存庫
 2. 在儲存庫設定中啟用 GitHub Pages
 3. 選擇主分支和根目錄
-4. 網站將在 `https://[username].github.io/[repository-name]/` 上線
+4. 網站將在 `https://yan-yu-lin.github.io/ai-customer-service-showcase/` 上線
+
+## 線上展示
+
+🌐 **即時網站**: https://yan-yu-lin.github.io/ai-customer-service-showcase/
 
 ## 本地預覽
 
