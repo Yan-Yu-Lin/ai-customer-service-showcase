@@ -4,37 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 客服系統開發日誌</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=4">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <h1 class="nav-title">AI 客服系統專案</h1>
-            <ul class="nav-links">
-                <li><a href="index.html">系統架構</a></li>
-                <li><a href="development-log.html" class="active">開發日誌</a></li>
-            </ul>
+    <header>
+        <div class="header-content">
+            <div class="course-info">
+                <span class="course-name">技術專案展示</span>
+                <span class="separator">•</span>
+                <span class="submission-type">開發日誌</span>
+            </div>
+            <h1>AI 客服系統開發進度</h1>
+            <div class="student-info">
+                <span class="department">Web 應用開發</span>
+                <span class="separator">•</span>
+                <span class="student-id">2025</span>
+                <span class="separator">•</span>
+                <span class="student-name">開發團隊</span>
+            </div>
+            <div class="page-navigation">
+                <a href="index.html" class="nav-link">系統架構</a>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="container">
-        <header class="page-header">
-            <h1>AI 客服系統開發日誌</h1>
-            <p class="subtitle">專案開發進度與技術決策記錄</p>
-        </header>
+    <div class="content-wrapper container">
+        <aside class="toc-sidebar">
+            <h3>目錄</h3>
+            <ul class="toc-list">
+                <li><a href="#phase1">第一階段：專案初始化</a>
+                    <ul>
+                        <li><a href="#phase1-completed">完成項目</a></li>
+                        <li><a href="#phase1-decisions">技術決策記錄</a></li>
+                        <li><a href="#phase1-problems">遇到的問題與解決方案</a></li>
+                    </ul>
+                </li>
+                <li><a href="#phase2">第二階段：基本聊天功能原型</a>
+                    <ul>
+                        <li><a href="#phase2-strategy">開發策略調整</a></li>
+                        <li><a href="#phase2-completed">完成項目</a></li>
+                        <li><a href="#phase2-problems">技術問題與解決</a></li>
+                        <li><a href="#phase2-testing">測試結果</a></li>
+                    </ul>
+                </li>
+                <li><a href="#phase3">第三階段：Anthropic API 整合</a>
+                    <ul>
+                        <li><a href="#phase3-completed">完成項目</a></li>
+                        <li><a href="#phase3-tech">技術細節</a></li>
+                        <li><a href="#phase3-usage">使用方式</a></li>
+                        <li><a href="#phase3-limitations">已知限制</a></li>
+                    </ul>
+                </li>
+                <li><a href="#phase4">第四階段：修復關鍵問題</a>
+                    <ul>
+                        <li><a href="#phase4-fixes">修復的問題</a></li>
+                        <li><a href="#phase4-decisions">技術決策</a></li>
+                        <li><a href="#phase4-testing">測試確認</a></li>
+                        <li><a href="#phase4-next">下一步優化建議</a></li>
+                    </ul>
+                </li>
+                <li><a href="#dev-environment">開發環境資訊</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
 
-        <!-- Phase 1 -->
-        <article class="log-entry">
+            <!-- Phase 1 -->
+            <article class="log-entry" id="phase1">
             <header class="log-header">
                 <h2>第一階段：專案初始化</h2>
                 <time class="log-date">2025-06-12</time>
             </header>
 
             <section class="log-content">
-                <h3>完成項目</h3>
+                <h3 id="phase1-completed">完成項目</h3>
                 
                 <div class="completion-section">
                     <h4>1. 專案架構建立</h4>
@@ -98,7 +141,7 @@
                     </ul>
                 </div>
 
-                <h3>技術決策記錄</h3>
+                <h3 id="phase1-decisions">技術決策記錄</h3>
                 <div class="decision-grid">
                     <div class="decision-card">
                         <h4>為什麼選擇 TypeScript</h4>
@@ -128,7 +171,7 @@
                     </div>
                 </div>
 
-                <h3>遇到的問題與解決方案</h3>
+                <h3 id="phase1-problems">遇到的問題與解決方案</h3>
                 <div class="problem-solution">
                     <div class="problem">
                         <h4>路徑問題</h4>
@@ -165,15 +208,15 @@
             </section>
         </article>
 
-        <!-- Phase 2 -->
-        <article class="log-entry">
+            <!-- Phase 2 -->
+            <article class="log-entry" id="phase2">
             <header class="log-header">
                 <h2>第二階段：基本聊天功能原型</h2>
                 <time class="log-date">2025-06-12</time>
             </header>
 
             <section class="log-content">
-                <div class="strategy-change">
+                <div class="strategy-change" id="phase2-strategy">
                     <h3>開發策略調整</h3>
                     <ul>
                         <li><strong>原計劃：</strong>先完成認證系統和文檔管理</li>
@@ -182,7 +225,7 @@
                     </ul>
                 </div>
 
-                <h3>完成項目</h3>
+                <h3 id="phase2-completed">完成項目</h3>
 
                 <div class="completion-section">
                     <h4>1. 後端聊天 API (<code>backend/src/routes/chat.ts</code>)</h4>
@@ -248,7 +291,7 @@
                     </div>
                 </div>
 
-                <h3>測試結果</h3>
+                <h3 id="phase2-testing">測試結果</h3>
                 <div class="test-results">
                     <h4>API 測試</h4>
                     <div class="code-block">
@@ -282,15 +325,15 @@ curl -X POST http://localhost:3000/api/chat/message \
             </section>
         </article>
 
-        <!-- Phase 3 -->
-        <article class="log-entry">
+            <!-- Phase 3 -->
+            <article class="log-entry" id="phase3">
             <header class="log-header">
                 <h2>第三階段：Anthropic API 整合</h2>
                 <time class="log-date">2025-06-12</time>
             </header>
 
             <section class="log-content">
-                <h3>完成項目</h3>
+                <h3 id="phase3-completed">完成項目</h3>
 
                 <div class="completion-section">
                     <h4>1. AI 服務模組（<code>backend/src/services/ai.ts</code>）</h4>
@@ -335,7 +378,7 @@ curl -X POST http://localhost:3000/api/chat/message \
                     </div>
                 </div>
 
-                <h3>技術細節</h3>
+                <h3 id="phase3-tech">技術細節</h3>
                 <div class="tech-details">
                     <h4>使用的技術</h4>
                     <ul>
@@ -360,7 +403,7 @@ curl -X POST http://localhost:3000/api/chat/message \
                     </ul>
                 </div>
 
-                <h3>使用方式</h3>
+                <h3 id="phase3-usage">使用方式</h3>
                 <div class="usage-guide">
                     <div class="step">
                         <h4>1. 設定 API Key：</h4>
@@ -387,7 +430,7 @@ node test-api.js</code></pre>
                     </div>
                 </div>
 
-                <h3>已知限制</h3>
+                <h3 id="phase3-limitations">已知限制</h3>
                 <div class="limitations">
                     <div class="limitation">
                         <h4>尚未實作對話歷史</h4>
@@ -416,15 +459,15 @@ node test-api.js</code></pre>
             </section>
         </article>
 
-        <!-- Phase 4 -->
-        <article class="log-entry">
+            <!-- Phase 4 -->
+            <article class="log-entry" id="phase4">
             <header class="log-header">
                 <h2>第四階段：修復關鍵問題</h2>
                 <time class="log-date">2025-06-12</time>
             </header>
 
             <section class="log-content">
-                <h3>修復的問題</h3>
+                <h3 id="phase4-fixes">修復的問題</h3>
 
                 <div class="fix-section">
                     <h4>1. ConversationId 格式不匹配</h4>
@@ -463,7 +506,7 @@ node test-api.js</code></pre>
                     </ul>
                 </div>
 
-                <h3>技術決策</h3>
+                <h3 id="phase4-decisions">技術決策</h3>
                 <div class="decision-grid">
                     <div class="decision-card">
                         <h4>為什麼用 Map 而非資料庫？</h4>
@@ -484,7 +527,7 @@ node test-api.js</code></pre>
                     </div>
                 </div>
 
-                <h3>測試確認</h3>
+                <h3 id="phase4-testing">測試確認</h3>
                 <ul class="test-checklist">
                     <li class="test-pass">✅ 多則訊息連續發送正常</li>
                     <li class="test-pass">✅ AI 能記住之前的對話內容</li>
@@ -492,7 +535,7 @@ node test-api.js</code></pre>
                     <li class="test-pass">✅ 錯誤訊息更詳細易懂</li>
                 </ul>
 
-                <h3>下一步優化建議</h3>
+                <h3 id="phase4-next">下一步優化建議</h3>
                 <div class="next-steps">
                     <div class="step-card">
                         <h4>持久化對話</h4>
@@ -532,7 +575,7 @@ node test-api.js</code></pre>
             </section>
         </article>
 
-        <div class="environment-info">
+            <div class="environment-info" id="dev-environment">
             <h2>開發環境資訊</h2>
             <ul>
                 <li>Node.js 版本：18+</li>
@@ -542,7 +585,8 @@ node test-api.js</code></pre>
                 <li>Anthropic SDK：@anthropic-ai/sdk 最新版</li>
             </ul>
         </div>
-    </main>
+        </main>
+    </div>
 
     <footer class="footer">
         <p>AI 客服系統專案 &copy; 2025 - 康和證券合作專案</p>
