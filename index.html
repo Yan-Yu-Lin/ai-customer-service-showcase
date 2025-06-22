@@ -407,12 +407,16 @@
         // 點擊導航連結時的平滑滾動
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const href = link.getAttribute('href');
+                // 只對錨點連結（以 # 開頭）進行平滑滾動
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
+                // 外部連結（.html 檔案）將正常導航
             });
         });
 
