@@ -70,10 +70,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                const offset = 80; // Account for fixed header
-                const targetPosition = targetElement.offsetTop - offset;
+                // Calculate position to show element at top 1/4 of viewport
+                const rect = targetElement.getBoundingClientRect();
+                const absoluteTop = window.pageYOffset + rect.top;
+                const viewportHeight = window.innerHeight;
+                const desiredOffset = viewportHeight / 5; // Want element at 1/5 from top of viewport
+                
+                // Scroll to position where element will be at 1/4 from top
+                const scrollToPosition = absoluteTop - desiredOffset;
+                
                 window.scrollTo({
-                    top: targetPosition,
+                    top: Math.max(0, scrollToPosition),
                     behavior: 'smooth'
                 });
             }

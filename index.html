@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 客服系統專案說明</title>
+    <title>康和證券 AI 語音客服系統專案說明</title>
     <link rel="stylesheet" href="css/styles.css?v=4">
 </head>
 <body>
@@ -14,7 +14,7 @@
                 <span class="separator">•</span>
                 <span class="submission-type">系統架構說明</span>
             </div>
-            <h1>AI 客服系統專案</h1>
+            <h1>康和證券 AI 語音客服系統專案</h1>
             <div class="student-info">
                 <span class="department">Web 應用開發</span>
                 <span class="separator">•</span>
@@ -42,6 +42,7 @@
                 <li><a href="#part2">第二部分：核心功能</a>
                     <ul>
                         <li><a href="#chat-widget">AI 聊天小工具</a></li>
+                        <li><a href="#voice-service">AI 語音客服功能</a></li>
                         <li><a href="#admin-dashboard">管理後台功能</a></li>
                     </ul>
                 </li>
@@ -62,14 +63,20 @@
                 <section id="what-is-it">
                     <h3>這是什麼</h3>
                     
-                    <p>這是一個 AI 客服系統，讓企業網站可以提供自動化的客戶服務。系統使用 Anthropic Claude API 來理解和回答客戶問題，前端用 Vue 3 開發聊天介面，後端用 Node.js + Express 處理 API 請求。</p>
+                    <p>這是專為康和證券開發的 AI 語音客服系統，提供文字與語音雙模式的自動化客戶服務。系統使用 Anthropic Claude API 來理解和回答客戶問題，前端用 Vue 3 開發互動介面，後端用 Node.js + Express 處理 API 請求。</p>
                     
-                    <p>企業只需要在網站加入一行 JavaScript 程式碼：</p>
+                    <p><strong>開發策略</strong>：</p>
+                    <ul>
+                        <li><strong>第一階段</strong>（進行中）：完成文字聊天功能，確保基礎服務穩定運作</li>
+                        <li><strong>第二階段</strong>（規劃中）：整合語音功能，讓客戶可以用說話的方式詢問，系統也能用自然語音回應</li>
+                    </ul>
+                    
+                    <p>康和只需要在網站加入一行 JavaScript 程式碼：</p>
                     <div class="code-block">
                         <pre><code>&lt;script src="https://your-domain.com/widget.js?key=YOUR_API_KEY"&gt;&lt;/script&gt;</code></pre>
                     </div>
                     
-                    <p>聊天視窗就會出現在網站右下角，客戶可以直接詢問問題並獲得 AI 回答。</p>
+                    <p>客服小工具就會出現在網站右下角，客戶可以選擇用打字或語音的方式詢問問題。</p>
                 </section>
                 
                 <section id="problems-solved">
@@ -80,10 +87,12 @@
                     <ol>
                         <li><strong>減少人工客服工作量</strong>：自動回答常見問題，如營業時間、手續費、開戶流程等</li>
                         <li><strong>提供 24/7 服務</strong>：不受上下班時間限制，隨時可以回答客戶問題</li>
-                        <li><strong>統一回答標準</strong>：基於公司提供的文件資料，確保回答內容一致且正確</li>
+                        <li><strong>統一回答標準</strong>：基於康和提供的文件資料，確保回答內容一致且正確</li>
+                        <li><strong>提升服務便利性</strong>：語音互動讓客戶在開車、做家事等不方便打字的情況下也能獲得服務</li>
+                        <li><strong>無障礙服務</strong>：照顧視力不便或不熟悉打字的客戶群體</li>
                     </ol>
                     
-                    <p>系統會記錄所有對話，方便後續分析客戶常問的問題類型。</p>
+                    <p>系統會記錄所有對話（文字與語音），方便後續分析客戶常問的問題類型。</p>
                 </section>
                 
                 <section id="how-to-integrate">
@@ -92,12 +101,12 @@
                     <p>整合過程分為三個步驟：</p>
                     
                     <ol>
-                        <li><strong>註冊帳號</strong>：在管理後台註冊公司帳號，獲得 API Key</li>
-                        <li><strong>上傳資料</strong>：上傳公司的 FAQ、產品說明、服務條款等文件（支援 PDF、TXT、DOCX）</li>
-                        <li><strong>嵌入程式碼</strong>：將提供的 JavaScript 程式碼加入網站的 HTML 中</li>
+                        <li><strong>系統部署</strong>：將系統部署到康和指定的伺服器環境（自有伺服器或雲端服務）</li>
+                        <li><strong>資料準備</strong>：協助康和整理並上傳相關文件，如FAQ、產品說明、服務條款等（支援 PDF、TXT、DOCX）</li>
+                        <li><strong>網站整合</strong>：在康和網站中加入客服小工具程式碼</li>
                     </ol>
                     
-                    <p>整個過程約需 10-15 分鐘即可完成。系統會自動處理上傳的文件，建立知識庫供 AI 查詢使用。</p>
+                    <p>整個部署與整合過程預計需要 1-2 個工作天。系統會自動處理上傳的文件，建立專屬康和的知識庫供 AI 查詢使用。</p>
                 </section>
             </section>
 
@@ -140,14 +149,48 @@
                     </div>
                 </section>
                 
+                <section id="voice-service">
+                    <h3>AI 語音客服功能（第二階段）</h3>
+                    
+                    <p>語音客服功能讓客戶可以用更自然的方式與系統互動：</p>
+                    
+                    <h4>語音互動功能</h4>
+                    <ul>
+                        <li>語音輸入：點擊麥克風按鈕即可開始說話</li>
+                        <li>自然語音回應：AI 用流暢的語音回答客戶問題</li>
+                        <li>文字/語音模式切換：客戶可隨時切換偏好的互動方式</li>
+                        <li>語音中斷處理：支援客戶隨時打斷並提出新問題</li>
+                    </ul>
+                    
+                    <h4>技術方案（評估中）</h4>
+                    <p>目前正在評估以下技術方案，將根據技術發展選擇最適合的：</p>
+                    <ul>
+                        <li><strong>方案一</strong>：OpenAI Real-time API（等待暑期新模型發布）</li>
+                        <li><strong>方案二</strong>：Eleven Labs 語音合成技術</li>
+                        <li><strong>方案三</strong>：傳統架構 STT + LLM + TTS 組合</li>
+                        <li>最終方案將考慮：回應速度、語音自然度、成本效益、整合複雜度</li>
+                    </ul>
+                    
+                    <h4>預期效果</h4>
+                    <ul>
+                        <li>降低客戶使用門檻，特別是年長客戶</li>
+                        <li>提高互動效率，語音溝通比打字快 3-5 倍</li>
+                        <li>創造更人性化的服務體驗</li>
+                    </ul>
+                    
+                    <div class="visual-placeholder">
+                        <p>截圖待補充：需要語音介面的概念圖或流程圖</p>
+                    </div>
+                </section>
+                
                 <section id="admin-dashboard">
                     <h3>管理後台功能</h3>
                     
-                    <p>管理後台讓企業可以設定和管理 AI 客服系統：</p>
+                    <p>管理後台讓康和可以設定和管理 AI 客服系統：</p>
                     
                     <h4>文件管理</h4>
                     <ul>
-                        <li>上傳公司文件（支援 PDF、TXT、DOCX 格式）</li>
+                        <li>上傳康和的相關文件（支援 PDF、TXT、DOCX 格式）</li>
                         <li>檢視已上傳的文件列表</li>
                         <li>為每個文件設定摘要（summary）</li>
                         <li>刪除或更新文件內容</li>
@@ -208,9 +251,17 @@
                     
                     <h4>AI 整合</h4>
                     <ul>
-                        <li><strong>AI 服務</strong>：Anthropic Claude 3.5 Sonnet API</li>
+                        <li><strong>文字對話</strong>：Anthropic Claude 3.5 Sonnet API</li>
                         <li><strong>實作方式</strong>：使用官方 SDK (@anthropic-ai/sdk)</li>
                         <li><strong>回應模式</strong>：支援一般回應和串流回應（Server-Sent Events）</li>
+                    </ul>
+                    
+                    <h4>語音技術（第二階段）</h4>
+                    <ul>
+                        <li><strong>語音識別</strong>：評估中（Web Speech API / 第三方服務）</li>
+                        <li><strong>語音合成</strong>：評估中（Eleven Labs / OpenAI TTS / Edge TTS）</li>
+                        <li><strong>即時對話</strong>：研究 OpenAI Real-time API 與工具整合方案</li>
+                        <li><strong>備選方案</strong>：傳統 STT → LLM → TTS 管線架構</li>
                     </ul>
                 </section>
                 
