@@ -3,367 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>康和證券 AI 語音客服系統專案說明</title>
-    <link rel="stylesheet" href="css/styles.css?v=4">
+    <title>康和證券 AI 客服系統專案計劃書</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 左側導航欄 */
+        .sidebar {
+            width: 280px;
+            background-color: #2c3e50;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h2 {
+            color: #ecf0f1;
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #34495e;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            margin-bottom: 10px;
+        }
+
+        .nav-list a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .nav-list a:hover {
+            background-color: #34495e;
+            color: #ecf0f1;
+            transform: translateX(5px);
+        }
+
+        .nav-list a.active {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* 主要內容區 */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+            max-width: 1200px;
+        }
+
+        .content-wrapper {
+            background-color: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        /* 圖片樣式 */
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 摘要區塊特殊樣式 */
+        .summary {
+            background-color: #ecf0f1;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+
+        /* 重點標示樣式 */
+        .highlight-box {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #3498db;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .content-wrapper {
+                padding: 30px;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        /* 平滑滾動 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 返回頂部按鈕 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .back-to-top:hover {
+            background-color: #2980b9;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="course-info">
-                <span class="course-name">技術專案展示</span>
-                <span class="separator">•</span>
-                <span class="submission-type">系統架構說明</span>
-            </div>
-            <h1>康和證券 AI 語音客服系統專案</h1>
-            <div class="student-info">
-                <span class="department">Web 應用開發</span>
-                <span class="separator">•</span>
-                <span class="student-id">2025</span>
-                <span class="separator">•</span>
-                <span class="student-name">開發團隊</span>
-            </div>
-            <div class="page-navigation">
-                <a href="development-log.html" class="nav-link">開發日誌</a>
-            </div>
-        </div>
-    </header>
-
-    <div class="content-wrapper container">
-        <aside class="toc-sidebar">
-            <h3>目錄</h3>
-            <ul class="toc-list">
-                <li><a href="#part1">第一部分：專案說明</a>
-                    <ul>
-                        <li><a href="#what-is-it">這是什麼</a></li>
-                        <li><a href="#problems-solved">解決什麼問題</a></li>
-                        <li><a href="#how-to-integrate">如何整合</a></li>
-                    </ul>
-                </li>
-                <li><a href="#part2">第二部分：核心功能</a>
-                    <ul>
-                        <li><a href="#chat-widget">AI 聊天小工具</a></li>
-                        <li><a href="#voice-service">AI 語音客服功能</a></li>
-                        <li><a href="#admin-dashboard">管理後台功能</a></li>
-                    </ul>
-                </li>
-                <li><a href="#part3">第三部分：技術實現</a>
-                    <ul>
-                        <li><a href="#tech-stack">使用的技術棧</a></li>
-                        <li><a href="#architecture">系統架構圖</a></li>
-                        <li><a href="#tech-details">技術細節說明</a></li>
-                    </ul>
-                </li>
+    <div class="container">
+        <!-- 左側導航欄 -->
+        <nav class="sidebar">
+            <h2>相關頁面</h2>
+            <ul class="nav-list">
+                <li><a href="technical-showcase.html" class="nav-link">技術展示</a></li>
+                <li><a href="development-log.html" class="nav-link">開發日誌</a></li>
             </ul>
-        </aside>
-        
-        <main class="main-content">
-            <section id="part1">
-                <h2>第一部分：專案說明</h2>
-                
-                <section id="what-is-it">
-                    <h3>這是什麼</h3>
-                    
-                    <p>這是專為康和證券開發的 AI 語音客服系統，提供文字與語音雙模式的自動化客戶服務。系統使用 Anthropic Claude API 來理解和回答客戶問題，前端用 Vue 3 開發互動介面，後端用 Node.js + Express 處理 API 請求。</p>
-                    
-                    <p><strong>開發策略</strong>：</p>
-                    <ul>
-                        <li><strong>第一階段</strong>（進行中）：完成文字聊天功能，確保基礎服務穩定運作</li>
-                        <li><strong>第二階段</strong>（規劃中）：整合語音功能，讓客戶可以用說話的方式詢問，系統也能用自然語音回應</li>
-                    </ul>
-                    
-                    <p>康和只需要在網站加入一行 JavaScript 程式碼：</p>
-                    <div class="code-block">
-                        <pre><code>&lt;script src="https://your-domain.com/widget.js?key=YOUR_API_KEY"&gt;&lt;/script&gt;</code></pre>
-                    </div>
-                    
-                    <p>客服小工具就會出現在網站右下角，客戶可以選擇用打字或語音的方式詢問問題。</p>
-                </section>
-                
-                <section id="problems-solved">
-                    <h3>解決什麼問題</h3>
-                    
-                    <p>這個系統主要解決以下問題：</p>
-                    
-                    <ol>
-                        <li><strong>減少人工客服工作量</strong>：自動回答常見問題，如營業時間、手續費、開戶流程等</li>
-                        <li><strong>提供 24/7 服務</strong>：不受上下班時間限制，隨時可以回答客戶問題</li>
-                        <li><strong>統一回答標準</strong>：基於康和提供的文件資料，確保回答內容一致且正確</li>
-                        <li><strong>提升服務便利性</strong>：語音互動讓客戶在開車、做家事等不方便打字的情況下也能獲得服務</li>
-                        <li><strong>無障礙服務</strong>：照顧視力不便或不熟悉打字的客戶群體</li>
-                    </ol>
-                    
-                    <p>系統會記錄所有對話（文字與語音），方便後續分析客戶常問的問題類型。</p>
-                </section>
-                
-                <section id="how-to-integrate">
-                    <h3>如何整合</h3>
-                    
-                    <p>整合過程分為三個步驟：</p>
-                    
-                    <ol>
-                        <li><strong>系統部署</strong>：將系統部署到康和指定的伺服器環境（自有伺服器或雲端服務）</li>
-                        <li><strong>資料準備</strong>：協助康和整理並上傳相關文件，如FAQ、產品說明、服務條款等（支援 PDF、TXT、DOCX）</li>
-                        <li><strong>網站整合</strong>：在康和網站中加入客服小工具程式碼</li>
-                    </ol>
-                    
-                    <p>整個部署與整合過程預計需要 1-2 個工作天。系統會自動處理上傳的文件，建立專屬康和的知識庫供 AI 查詢使用。</p>
-                </section>
-            </section>
+            <hr style="margin: 20px 0; border-color: #34495e;">
+            <h2>專案計劃書導覽</h2>
+            <ul class="nav-list">
+                <li><a href="#summary" class="nav-link">摘要</a></li>
+                <li><a href="#section1" class="nav-link">一、客戶屬性與產業特性分析</a></li>
+                <li><a href="#section2" class="nav-link">二、專案目標</a></li>
+                <li><a href="#section3" class="nav-link">三、AI 技術應用與規劃</a></li>
+                <li><a href="#section4" class="nav-link">四、系統功能模組設計</a></li>
+                <li><a href="#section5" class="nav-link">五、專案時程與階段規劃</a></li>
+                <li><a href="#section6" class="nav-link">六、結語</a></li>
+            </ul>
+        </nav>
 
-            <section id="part2">
-                <h2>第二部分：核心功能</h2>
-                
-                <section id="chat-widget">
-                    <h3>AI 聊天小工具（Chat Widget）</h3>
-                    
-                    <p>聊天小工具是客戶看到並使用的介面，具有以下功能：</p>
-                    
-                    <h4>基本功能</h4>
-                    <ul>
-                        <li>浮動按鈕固定在網頁右下角，點擊展開聊天視窗</li>
-                        <li>支援文字輸入和發送訊息</li>
-                        <li>顯示 AI 回覆，包含打字動畫效果</li>
-                        <li>保存對話歷史（使用瀏覽器 localStorage）</li>
-                        <li>自動適應手機、平板、桌面螢幕尺寸</li>
-                    </ul>
-                    
-                    <h4>AI 對話能力</h4>
-                    <ul>
-                        <li>理解自然語言提問，不需要特定格式</li>
-                        <li>記住對話上下文，可以進行多輪對話（目前上限 10 輪）</li>
-                        <li>透過 MCP (Model Context Protocol) 查詢公司文件</li>
-                        <li>根據文件摘要判斷相關性，找出正確答案</li>
-                        <li>無法回答時會建議聯繫人工客服</li>
-                    </ul>
-                    
-                    <h4>技術實現</h4>
-                    <ul>
-                        <li>使用 Vue 3 開發，編譯成單一 JavaScript 檔案（約 200KB）</li>
-                        <li>透過 WebSocket 或 HTTP 與後端 API 通訊</li>
-                        <li>支援 CORS，可嵌入任何網域的網站</li>
-                        <li>介面樣式隔離，不會影響原網站的 CSS</li>
-                    </ul>
-                    
-                    <div class="visual-placeholder">
-                        <p>截圖待補充：需要聊天介面的截圖，展示實際的對話畫面</p>
+        <!-- 主要內容區 -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1>康和證券 AI 客服系統專案計劃書</h1>
+
+                <section id="summary" class="section">
+                    <h2>摘要</h2>
+                    <div class="summary">
+                        <p>本專案由北科大電子系賴冠廷教授指導，林晏宇、顧弘年共同開發，與康和證券合作。本計劃書提案為康和證券打造一套專業的 AI 語音客服系統，以提升客服效率、降低人工作業成本並強化客戶滿意度。本方案充分考量證券業務特性，將運用大型語言模型（LLM）結合模型上下文協定（MCP）技術，建立 24/7 全天候智能客服平台。系統將整合現有 FAQ 與教學資料為資料庫，確保回答內容正確一致，同時提供語音服務功能，讓客戶能以更自然的方式與系統互動。本計劃內容務實可行，有助於康和證券以 AI 技術優化客服流程、提升投資人服務品質。</p>
                     </div>
                 </section>
-                
-                <section id="voice-service">
-                    <h3>AI 語音客服功能（第二階段）</h3>
+
+                <section id="section1" class="section">
+                    <h2>一、客戶屬性與產業特性分析</h2>
+                    <p>康和證券為一綜合證券公司，提供股票及衍生性金融商品交易、複委託（跨市場交易）等服務。其客服內容涵蓋<strong>開戶</strong>（如線上/臨櫃開戶流程、所需文件）、<strong>下單交易</strong>（包含電話下單、網路下單操作指引）、<strong>交易流程</strong>（如資金交割、交易時間、手續費）、<strong>複委託</strong>（代辦海外證券買賣流程）等多面向的金融業務。證券業具高法規遵循要求，需確保對外資訊正確一致，同時服務對象（投資人）期望獲得即時且準確的協助。</p>
                     
-                    <p>語音客服功能讓客戶可以用更自然的方式與系統互動：</p>
-                    
-                    <h4>語音互動功能</h4>
+                    <p>目前康和證券的客服管道以<strong>電話</strong>與<strong>電子郵件</strong>為主，缺乏整合性的線上互動客服介面。在傳統模式下，投資人若有問題只能於營業時間來電或來信，不僅流程繁瑣，也增加人工座席的負擔。此外，不同客服人員對相同問題的答覆可能略有出入，難以確保問答標準統一。在證券交易瞬息萬變的環境裡，這種客服模式已難以滿足客戶對<strong>即時回應</strong>與<strong>精準資訊</strong>的需求。因此，導入 AI 智慧客服系統勢在必行，可望改善現行服務痛點並符合金融業對資訊正確性與效率的要求。</p>
+                </section>
+
+                <section id="section2" class="section">
+                    <h2>二、專案目標</h2>
+                    <p>本專案旨在為康和證券導入 AI 客服系統，以達成以下具體目標：</p>
                     <ul>
-                        <li>語音輸入：點擊麥克風按鈕即可開始說話</li>
-                        <li>自然語音回應：AI 用流暢的語音回答客戶問題</li>
-                        <li>文字/語音模式切換：客戶可隨時切換偏好的互動方式</li>
-                        <li>語音中斷處理：支援客戶隨時打斷並提出新問題</li>
+                        <li><strong>提升客服效率</strong>：讓大量重複性FAQ與簡單交易流程查詢由 AI 自動處理，加快回覆速度。預期縮短客戶等待時間，即時解答問題，提高服務效率。</li>
+                        <li><strong>降低人工客服成本</strong>：減少人工座席在簡單問題上的投入，降低營運成本。人力可轉為處理複雜諮詢與高價值客戶服務。</li>
+                        <li><strong>統一問答標準</strong>：透過統一的知識庫與 AI 模型，確保不同客戶詢問相同問題時獲得一致且正確的答覆，避免人工作業差異。</li>
+                        <li><strong>強化客戶滿意度</strong>：提供快速且有邏輯的回答，避免客戶久候。藉由全天候服務與一致性資訊，建立客戶對品牌的信任感。</li>
+                        <li><strong>24/7 自動服務</strong>：打造一個全年無休的智能客服平台，讓國內外投資人無論任何時間都能獲得即時協助。系統能處理常見問題、交易指引等，大幅提升服務可近性。</li>
+                        <li><strong>提升競爭力</strong>：借助 AI 技術創新客服模式，塑造公司數位金融形象，滿足年輕世代及數位用戶對智慧服務的期待。</li>
                     </ul>
+                    <p>上述目標均有明確的衡量指標，例如：<strong>首次回應時間</strong>、<strong>問題解決率</strong>、<strong>客戶滿意度</strong>調查分數等。我們預期透過本專案，常見問題的自動解答率顯著提升，人工介入率明顯降低，達成降本增效的綜效。同時，24 小時在線服務將使客戶滿意度提升，進而增進客戶黏著度與忠誠度。</p>
+                </section>
+
+                <section id="section3" class="section">
+                    <h2>三、AI 技術應用與規劃</h2>
+                    <p>本專案核心技術架構採用<strong>大型語言模型（LLM）</strong>為基礎的智慧問答系統，並結合<strong>模型上下文協定（MCP）</strong>技術，確保回覆內容專業正確且貼近公司資料庫。下列為主要技術應用與規劃重點：</p>
                     
-                    <h4>技術方案（評估中）</h4>
-                    <p>目前正在評估以下技術方案，將根據技術發展選擇最適合的：</p>
                     <ul>
-                        <li><strong>方案一</strong>：OpenAI Real-time API（等待暑期新模型發布）</li>
-                        <li><strong>方案二</strong>：Eleven Labs 語音合成技術</li>
-                        <li><strong>方案三</strong>：傳統架構 STT + LLM + TTS 組合</li>
-                        <li>最終方案將考慮：回應速度、語音自然度、成本效益、整合複雜度</li>
+                        <li><strong>大型語言模型整合</strong>：採用 Anthropic Claude 作為主要對話引擎。Claude 具備強大的自然語言理解能力，能準確理解客戶問題並生成專業且友善的回答。透過精心設計的系統指令（system instruction），確保 AI 能夠以符合康和證券專業形象的方式與客戶互動。</li>
+                        
+                        <li><strong>資料庫建置與文件管理</strong>：建立企業專屬<strong>資料庫</strong>作為 AI 回答的依據。資料來源包括康和證券官網現有 FAQ、開戶與交易教學文件、業務流程SOP、法規條款摘要等。每個文件都會配有摘要（summary），所有文件的索引資訊會整合在 AI 的系統指令中，讓 AI 能快速了解可用的資料範圍。</li>
+                        
+                        <li><strong>模型上下文協定（MCP）</strong>：採用 Anthropic 提出的 MCP 標準，這就像是 AI 與外部工具溝通的「USB Type-C」標準介面。透過建立專屬的 MCP 工具，AI 可以主動決定需要查看哪些文件來回答客戶問題。相較於傳統的自動檢索方式，MCP 讓 AI 能更精準地選擇相關文件，大幅提升回答的準確性和可靠性。系統會提供文件列表、讀取文件、搜尋文件等 MCP 工具供 AI 使用。</li>
+                        
+                        <li><strong>多語言與專有名詞處理</strong>：資料庫內容以中文為主，但可擴充支援英文等語言，方便外籍投資人查詢。在模型詞彙表中重點加入金融專有名詞（如各種交易類型、商品名稱），確保 AI 能正確理解並回答專業術語問題。</li>
+                        
+                        <li><strong>資料隱私與安全</strong>：由於涉及客戶個資與交易資訊，系統部署將選擇<strong>私有化</strong>或在合規雲環境中進行。模型調用與資料庫資料均在受控環境內運行，保障機敏數據不外流。同時，遵循金融業安全規範，採取權限控管、操作日誌記錄與資料加密措施，確保系統符合監管要求。</li>
                     </ul>
-                    
-                    <h4>預期效果</h4>
-                    <ul>
-                        <li>降低客戶使用門檻，特別是年長客戶</li>
-                        <li>提高互動效率，語音溝通比打字快 3-5 倍</li>
-                        <li>創造更人性化的服務體驗</li>
-                    </ul>
-                    
-                    <div class="visual-placeholder">
-                        <p>截圖待補充：需要語音介面的概念圖或流程圖</p>
+
+                    <div class="highlight-box">
+                        <h3>版本規劃</h3>
+                        <p>專案將分為兩個主要階段：</p>
+                        <ul>
+                            <li><em>第一階段：文字聊天功能</em>：推出文字介面版本的 AI 聊天機器人，供用戶以文字提問、獲取文字答覆。此階段專注於確保基礎對話功能的穩定性和準確性。</li>
+                            <li><em>第二階段：語音客服功能</em>：在文字版本穩定運行後，加入語音功能。客戶可透過網站上的電話圖標轉接至 AI 語音客服。技術方案包括傳統的 STT（語音轉文字）+ LLM + TTS（文字轉語音）架構，或採用即時對話模型（如 OpenAI 的 real-time model）。具體方案將根據技術成熟度和實際需求決定。</li>
+                            <li><em>用戶滿意度調查</em>：系統將內建滿意度調查功能，在每次對話結束後收集用戶反饋，持續改善服務品質。</li>
+                            <li><em>工具整合</em>：透過 MCP 架構，未來可擴展 AI 的功能範圍，例如查詢即時資訊或整合其他內部系統。</li>
+                        </ul>
                     </div>
+
+                    <ul>
+                        <li><strong>客服渠道部署</strong>：AI 客服系統初期將專注於康和證券官方網站，提供<strong>聊天式客服介面</strong>（網頁浮動聊天視窗），讓訪客可即時諮詢。系統設計採用標準化 API 架構，未來如有需要，可考慮擴展至其他平台如 LINE 或 Facebook Messenger。</li>
+                    </ul>
+
                 </section>
-                
-                <section id="admin-dashboard">
-                    <h3>管理後台功能</h3>
-                    
-                    <p>管理後台讓康和可以設定和管理 AI 客服系統：</p>
-                    
-                    <h4>文件管理</h4>
+
+                <section id="section4" class="section">
+                    <h2>四、系統功能模組設計</h2>
+                    <p>AI 客服系統將模組化設計，分為前後台及多個功能元件，以便於開發、維護和日後擴充。主要模組及設計規劃如下：</p>
+
                     <ul>
-                        <li>上傳康和的相關文件（支援 PDF、TXT、DOCX 格式）</li>
-                        <li>檢視已上傳的文件列表</li>
-                        <li>為每個文件設定摘要（summary）</li>
-                        <li>刪除或更新文件內容</li>
-                        <li>系統自動產生文件索引供 AI 使用</li>
+                        <li><strong>使用者介面（前台系統）</strong>：提供客戶與 AI 對話的入口。初期專注於網站線上聊天視窗介面。前台具備友好的對話式UI，支持文字輸入與富媒體輸出（例如提供連結、圖片或簡單圖表協助說明）。同時提供<strong>快問快答</strong>功能，顯示常見問題按鈕供客戶快速點選。第二階段啟用語音功能時，介面將增加電話圖標供客戶轉接至語音客服。前端介面負責將使用者身份（若已登入）、提問內容等資訊傳給後端，並接收AI回覆後即時顯示給用戶。</li>
+
+                        <li><strong>AI 客服引擎（後端核心）</strong>：由<strong>Anthropic Claude API</strong>服務組成，接收前台傳來的問題請求，調用語言模型產生回覆。透過<strong>MCP 工具</strong>，AI 可以主動查詢資料庫中的相關文件，確保回答的專業性與正確性。系統會在 AI 的系統指令中包含所有文件的索引（名稱和摘要），讓 AI 能快速判斷需要查看哪些文件。對於無需 AI 處理的高頻問題，系統提供<strong>快問快答</strong>功能，由後台預設問題和答案，直接回覆客戶。</li>
+
+                        <li><strong>文件管理系統（資料庫與內容管理）</strong>：儲存並管理所有客服資料內容。包括常見問題Q&A、業務流程指南、法規說明等文本，以及後續可擴充的多媒體資料（圖片表格、短影片教學）。資料庫支持分層級分類（如開戶、交易、帳務、技術支援等），並設有<strong>版本控管</strong>和<strong>更新審核</strong>機制，確保內容定期維護與審核。管理後台允許客服主管或內容管理人員上傳文件、編輯文件摘要，以及設定<strong>快問快答</strong>的問題和答案。每個文件都必須有清楚的摘要說明，這些摘要會整合成索引供 AI 參考。</li>
+
+                        <li><strong>客服管理後台</strong>：供公司客服團隊監控 AI 系統運行情況並進行人工介入的平臺。後台介面可即時查看當前對話諮詢列表、AI 回答內容及信心指標。當 AI 未能理解問題或根據設定需人工協助時，後台會產生提醒，讓人工客服接手對話（實現<strong>跨模組導流</strong>，在人機間無縫轉接）。管理後台也提供<strong>黑名單/敏感詞</strong>設定，用於攔截違規或不適當的提問。客服主管可在此查看統計儀表板，包括詢問量高的問題類型、回答準確率等，以便持續優化資料庫內容和快問快答設定。</li>
+
+                        <li><strong>對話記錄與分析</strong>：系統將保存客服問答記錄，並對資料進行分析以產出營運洞見。透過<strong>數據分析儀表板</strong>，管理者可檢視每日諮詢量、問題類別分佈、AI 回答準確率及客戶反饋評分等指標。每次對話結束後，系統會進行<strong>用戶滿意度調查</strong>，收集客戶對服務的評價。並可產生週報/月報，總結常見客服問題及AI解答成效，作為調整資料庫內容和服務流程的依據。</li>
+
+                        <li><strong>語音服務模組（第二階段）</strong>：<strong>語音服務模組</strong>是專案的重要功能，將在第二階段實施。可選擇傳統的 STT/TTS 架構或即時對話模型。語音模組將與核心引擎透過 API 整合，讓客戶能透過語音與 AI 客服互動。此外，透過 MCP 架構的擴展性，未來可以整合更多外部工具或內部系統，擴展 AI 客服的功能範圍。</li>
+
+                        <li><strong>安全與權限控制</strong>：內建使用者權限管理，區分一般投資人使用的前台與內部人員使用的後台功能。實作嚴格的驗證與授權機制，確保只有授權員工可訪問管理後台和敏感數據。對外API調用也需設定金鑰或Token驗證，以防止未經授權的訪問。同時，系統符合金融業安全稽核要求，包含日誌留存、異常行為監控及定期弱點掃描等安全措施。</li>
                     </ul>
-                    
-                    <h4>AI 測試功能</h4>
-                    <ul>
-                        <li>在後台直接測試 AI 的回答效果</li>
-                        <li>調整 AI 的回答風格（正式/親切）</li>
-                        <li>設定無法回答時的預設回覆</li>
-                        <li>查看 AI 使用了哪些文件來生成答案</li>
-                    </ul>
-                    
-                    <h4>對話記錄</h4>
-                    <ul>
-                        <li>查看所有客戶對話歷史</li>
-                        <li>搜尋特定關鍵字的對話</li>
-                        <li>匯出對話記錄（CSV 格式）</li>
-                        <li>分析常見問題統計</li>
-                    </ul>
-                    
-                    <h4>系統設定</h4>
-                    <ul>
-                        <li>自訂聊天視窗的顏色和標題</li>
-                        <li>設定營業時間提示</li>
-                        <li>管理 API Key</li>
-                        <li>設定允許使用的網域（安全白名單）</li>
-                    </ul>
-                    
-                    <div class="visual-placeholder">
-                        <p>截圖待補充：需要管理後台的介面截圖，展示主要功能頁面</p>
-                    </div>
+
                 </section>
-            </section>
-            
-            <section id="part3" class="architecture">
-                <h2>第三部分：技術實現</h2>
-                <section id="tech-stack">
-                    <h3>使用的技術棧</h3>
-                    
-                    <h4>前端技術</h4>
+
+                <section id="section5" class="section">
+                    <h2>五、專案時程與階段規劃</h2>
+                    <p>專案時程規劃正在制定中，將根據實際開發進度和需求變化進行調整。目前專案規劃分為兩個主要階段：</p>
+
                     <ul>
-                        <li><strong>聊天小工具</strong>：Vue 3 + TypeScript，使用 Vite 打包成單一 JS 檔案</li>
-                        <li><strong>管理後台</strong>：Vue 3 + Element Plus UI 框架，Vue Router 處理頁面路由</li>
-                        <li><strong>狀態管理</strong>：Pinia（Vue 官方推薦的狀態管理工具）</li>
-                        <li><strong>HTTP 請求</strong>：Axios 處理 API 通訊</li>
-                    </ul>
-                    
-                    <h4>後端技術</h4>
-                    <ul>
-                        <li><strong>伺服器框架</strong>：Node.js + Express.js</li>
-                        <li><strong>程式語言</strong>：TypeScript（提供型別檢查，減少錯誤）</li>
-                        <li><strong>資料庫</strong>：PostgreSQL（儲存對話記錄、用戶資料、文件內容）</li>
-                        <li><strong>認證機制</strong>：JWT（JSON Web Token）處理用戶登入狀態</li>
-                        <li><strong>檔案處理</strong>：Multer 處理檔案上傳，pdf-parse 解析 PDF 文件</li>
-                    </ul>
-                    
-                    <h4>AI 整合</h4>
-                    <ul>
-                        <li><strong>文字對話</strong>：Anthropic Claude 3.5 Sonnet API</li>
-                        <li><strong>實作方式</strong>：使用官方 SDK (@anthropic-ai/sdk)</li>
-                        <li><strong>回應模式</strong>：支援一般回應和串流回應（Server-Sent Events）</li>
-                    </ul>
-                    
-                    <h4>語音技術（第二階段）</h4>
-                    <ul>
-                        <li><strong>語音識別</strong>：評估中（Web Speech API / 第三方服務）</li>
-                        <li><strong>語音合成</strong>：評估中（Eleven Labs / OpenAI TTS / Edge TTS）</li>
-                        <li><strong>即時對話</strong>：研究 OpenAI Real-time API 與工具整合方案</li>
-                        <li><strong>備選方案</strong>：傳統 STT → LLM → TTS 管線架構</li>
-                    </ul>
-                </section>
-                
-                <section id="architecture">
-                    <h3>系統架構圖</h3>
-                    
-                    <div class="architecture-diagram">
-                        <pre>
-┌─────────────────────────────────────┐
-│         客戶網站                     │
-│   ┌─────────────────────┐          │
-│   │  Chat Widget (Vue3) │          │
-│   └──────────┬──────────┘          │
-└──────────────┼─────────────────────┘
-               │ HTTPS API
-               ▼
-┌─────────────────────────────────────┐
-│      後端 API 服務器                 │
-│   ┌─────────────────────┐          │
-│   │   Express.js API    │          │
-│   │   - /api/chat       │          │
-│   │   - /api/documents  │          │
-│   │   - /api/admin      │          │
-│   └──────────┬──────────┘          │
-└──────────────┼─────────────────────┘
-               │
-    ┌──────────┴──────────┐
-    ▼                     ▼
-┌─────────┐         ┌──────────────┐
-│PostgreSQL│         │Anthropic API │
-│ Database │         │  (Claude)    │
-└─────────┘         └──────────────┘
-                        </pre>
-                    </div>
-                </section>
-                
-                <section id="tech-details">
-                    <h3>技術細節說明</h3>
-                    
-                    <h4>對話處理流程</h4>
-                    <ol>
-                        <li>用戶在聊天視窗輸入問題</li>
-                        <li>前端將問題發送到後端 API（<code>POST /api/chat/message</code>）</li>
-                        <li>後端從記憶體載入對話歷史（最多 10 輪）</li>
-                        <li>組合 system instruction：包含文件索引（所有文件名稱和摘要）</li>
-                        <li>AI 根據問題和文件摘要，使用 MCP 工具查詢相關文件</li>
-                        <li>基於查詢結果生成回答</li>
-                        <li>儲存對話到資料庫</li>
-                        <li>回傳答案給前端顯示</li>
-                    </ol>
-                    
-                    <h4>MCP (Model Context Protocol) 說明</h4>
-                    <ul>
-                        <li>AI 可以主動使用 MCP 工具與資料庫互動</li>
-                        <li>MCP 工具提供的功能：
-                            <ul>
-                                <li>列出所有可用文件</li>
-                                <li>讀取特定文件內容</li>
-                                <li>搜尋文件中的關鍵資訊</li>
-                            </ul>
+                        <li>
+                            <h3>第一階段：文字聊天功能開發</h3>
+                            <p>建立基礎的 AI 客服系統，包含網頁聊天介面、後端 API 服務、管理後台等核心功能。整合 Anthropic Claude API 並實作 MCP 工具，讓 AI 能夠查詢康和證券的相關文件資料。此階段專注於確保系統的穩定性和回答的準確性。</p>
                         </li>
-                        <li>AI 透過文件摘要判斷哪些文件可能包含答案</li>
+
+                        <li>
+                            <h3>第二階段：語音客服功能整合</h3>
+                            <p>在文字聊天功能穩定運行後，加入語音互動能力。客戶可透過點擊電話圖標與 AI 語音客服對話。技術方案將根據當時的技術成熟度選擇最適合的解決方案。</p>
+                        </li>
                     </ul>
-                    
-                    <h4>安全性設計</h4>
-                    <ul>
-                        <li>API Key 認證：所有請求需要有效的 API Key</li>
-                        <li>CORS 設定：只允許白名單內的網域存取</li>
-                        <li>輸入驗證：使用 express-validator 檢查所有輸入</li>
-                        <li>SQL 注入防護：使用參數化查詢</li>
-                        <li>XSS 防護：前端自動轉義所有用戶輸入</li>
-                    </ul>
-                    
-                    <h4>效能優化</h4>
-                    <ul>
-                        <li>對話記憶體快取：使用 Map 結構暫存最近對話</li>
-                        <li>文件索引快取：AI system instruction 包含所有文件摘要，減少查詢次數</li>
-                        <li>前端資源壓縮：Widget 檔案使用 gzip 壓縮</li>
-                        <li>API 回應快取：相同問題 5 分鐘內不重複呼叫 AI</li>
-                    </ul>
-                    
-                    <h4>部署架構</h4>
-                    <ul>
-                        <li>單一 VPS 伺服器（2-4 核心 CPU，4-8GB RAM）</li>
-                        <li>使用 PM2 管理 Node.js 程序</li>
-                        <li>Nginx 反向代理處理 HTTPS</li>
-                        <li>Let's Encrypt 免費 SSL 憑證</li>
-                        <li>每日自動備份資料庫</li>
-                    </ul>
-                    
-                    <div class="visual-placeholder">
-                        <p>截圖待補充：需要更詳細的技術架構圖，顯示資料流向和各組件之間的關係</p>
-                    </div>
+
+                    <p>詳細的時程規劃將根據專案需求、技術評估和資源配置來制定。專案採用敏捷開發方法，保持靈活性以應對需求變化和技術挑戰。</p>
                 </section>
-            </section>
+
+                <section id="section6" class="section">
+                    <h2>六、結語</h2>
+                    <p>綜上所述，本專案由北科大電子系賴冠廷教授指導，林晏宇、顧弘年共同開發，與康和證券合作。專案規劃以康和證券的業務場景與需求為出發，採用大型語言模型結合企業資料庫的 AI 語音客服方案，實現全天候、標準化的智慧客服服務。透過 MCP 技術的應用，確保 AI 能精準地查找相關資料，提供正確且專業的回答。預期導入後，AI 客服將有效分擔大量的常見問題諮詢工作，將人工客服人力釋放至更高價值的任務；同時，由於 AI 能即時回覆且保持一致性，<strong>問題解決率</strong>與<strong>客戶滿意度</strong>也將顯著提升。本計劃著重實務可行性，每項描述的功能皆基於當前技術能力與金融業務現實考量。隨著系統上線並持續優化，康和證券可逐步構築以 AI 為核心的智慧客服中心，強化競爭優勢並為客戶提供更優質便捷的服務，邁向數位金融創新的新里程碑。</p>
+                </section>
+            </div>
         </main>
     </div>
 
-    <footer class="footer">
-        <p>AI 客服系統專案 &copy; 2025 - 康和證券合作專案</p>
-    </footer>
+    <!-- 返回頂部按鈕 -->
+    <div class="back-to-top" id="backToTop">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </div>
 
-    <script src="js/main.js"></script>
+    <script>
+        // 導航欄滾動高亮功能
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // 建立 section 和 nav link 的對應關係
+        const sectionMap = new Map();
+        sections.forEach((section, index) => {
+            sectionMap.set(section, navLinks[index]);
+        });
+
+        // Intersection Observer 設定
+        const observerOptions = {
+            rootMargin: '-20% 0px -70% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 移除所有 active 類別
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    
+                    // 為當前可見的 section 對應的 nav link 添加 active 類別
+                    const activeLink = sectionMap.get(entry.target);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // 觀察所有 sections
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // 點擊導航連結時的平滑滾動
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // 返回頂部按鈕功能
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 初始化第一個連結為 active
+        if (navLinks.length > 0) {
+            navLinks[0].classList.add('active');
+        }
+    </script>
 </body>
 </html>

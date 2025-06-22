@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>康和證券 AI 語音客服系統專案說明</title>
+    <link rel="stylesheet" href="css/styles.css?v=4">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="course-info">
+                <span class="course-name">技術專案展示</span>
+                <span class="separator">•</span>
+                <span class="submission-type">系統架構說明</span>
+            </div>
+            <h1>康和證券 AI 語音客服系統專案</h1>
+            <div class="student-info">
+                <span class="department">Web 應用開發</span>
+                <span class="separator">•</span>
+                <span class="student-id">2025</span>
+                <span class="separator">•</span>
+                <span class="student-name">開發團隊</span>
+            </div>
+            <div class="page-navigation">
+                <a href="index.html" class="nav-link">專案計劃書</a>
+                <a href="development-log.html" class="nav-link">開發日誌</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper container">
+        <aside class="toc-sidebar">
+            <h3>目錄</h3>
+            <ul class="toc-list">
+                <li><a href="#part1">第一部分：專案說明</a>
+                    <ul>
+                        <li><a href="#what-is-it">這是什麼</a></li>
+                        <li><a href="#problems-solved">解決什麼問題</a></li>
+                        <li><a href="#how-to-integrate">如何整合</a></li>
+                    </ul>
+                </li>
+                <li><a href="#part2">第二部分：核心功能</a>
+                    <ul>
+                        <li><a href="#chat-widget">AI 聊天小工具</a></li>
+                        <li><a href="#voice-service">AI 語音客服功能</a></li>
+                        <li><a href="#admin-dashboard">管理後台功能</a></li>
+                    </ul>
+                </li>
+                <li><a href="#part3">第三部分：技術實現</a>
+                    <ul>
+                        <li><a href="#tech-stack">使用的技術棧</a></li>
+                        <li><a href="#architecture">系統架構圖</a></li>
+                        <li><a href="#tech-details">技術細節說明</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <section id="part1">
+                <h2>第一部分：專案說明</h2>
+                
+                <section id="what-is-it">
+                    <h3>這是什麼</h3>
+                    
+                    <p>這是專為康和證券開發的 AI 語音客服系統，提供文字與語音雙模式的自動化客戶服務。系統使用 Anthropic Claude API 來理解和回答客戶問題，前端用 Vue 3 開發互動介面，後端用 Node.js + Express 處理 API 請求。</p>
+                    
+                    <p><strong>開發策略</strong>：</p>
+                    <ul>
+                        <li><strong>第一階段</strong>（進行中）：完成文字聊天功能，確保基礎服務穩定運作</li>
+                        <li><strong>第二階段</strong>（規劃中）：整合語音功能，讓客戶可以用說話的方式詢問，系統也能用自然語音回應</li>
+                    </ul>
+                    
+                    <p>康和只需要在網站加入一行 JavaScript 程式碼：</p>
+                    <div class="code-block">
+                        <pre><code>&lt;script src="https://your-domain.com/widget.js?key=YOUR_API_KEY"&gt;&lt;/script&gt;</code></pre>
+                    </div>
+                    
+                    <p>客服小工具就會出現在網站右下角，客戶可以選擇用打字或語音的方式詢問問題。</p>
+                </section>
+                
+                <section id="problems-solved">
+                    <h3>解決什麼問題</h3>
+                    
+                    <p>這個系統主要解決以下問題：</p>
+                    
+                    <ol>
+                        <li><strong>減少人工客服工作量</strong>：自動回答常見問題，如營業時間、手續費、開戶流程等</li>
+                        <li><strong>提供 24/7 服務</strong>：不受上下班時間限制，隨時可以回答客戶問題</li>
+                        <li><strong>統一回答標準</strong>：基於康和提供的文件資料，確保回答內容一致且正確</li>
+                        <li><strong>提升服務便利性</strong>：語音互動讓客戶在開車、做家事等不方便打字的情況下也能獲得服務</li>
+                        <li><strong>無障礙服務</strong>：照顧視力不便或不熟悉打字的客戶群體</li>
+                    </ol>
+                    
+                    <p>系統會記錄所有對話（文字與語音），方便後續分析客戶常問的問題類型。</p>
+                </section>
+                
+                <section id="how-to-integrate">
+                    <h3>如何整合</h3>
+                    
+                    <p>整合過程分為三個步驟：</p>
+                    
+                    <ol>
+                        <li><strong>系統部署</strong>：將系統部署到康和指定的伺服器環境（自有伺服器或雲端服務）</li>
+                        <li><strong>資料準備</strong>：協助康和整理並上傳相關文件，如FAQ、產品說明、服務條款等（支援 PDF、TXT、DOCX）</li>
+                        <li><strong>網站整合</strong>：在康和網站中加入客服小工具程式碼</li>
+                    </ol>
+                    
+                    <p>整個部署與整合過程預計需要 1-2 個工作天。系統會自動處理上傳的文件，建立專屬康和的知識庫供 AI 查詢使用。</p>
+                </section>
+            </section>
+
+            <section id="part2">
+                <h2>第二部分：核心功能</h2>
+                
+                <section id="chat-widget">
+                    <h3>AI 聊天小工具（Chat Widget）</h3>
+                    
+                    <p>聊天小工具是客戶看到並使用的介面，具有以下功能：</p>
+                    
+                    <h4>基本功能</h4>
+                    <ul>
+                        <li>浮動按鈕固定在網頁右下角，點擊展開聊天視窗</li>
+                        <li>支援文字輸入和發送訊息</li>
+                        <li>顯示 AI 回覆，包含打字動畫效果</li>
+                        <li>保存對話歷史（使用瀏覽器 localStorage）</li>
+                        <li>自動適應手機、平板、桌面螢幕尺寸</li>
+                    </ul>
+                    
+                    <h4>AI 對話能力</h4>
+                    <ul>
+                        <li>理解自然語言提問，不需要特定格式</li>
+                        <li>記住對話上下文，可以進行多輪對話（目前上限 10 輪）</li>
+                        <li>透過 MCP (Model Context Protocol) 查詢公司文件</li>
+                        <li>根據文件摘要判斷相關性，找出正確答案</li>
+                        <li>無法回答時會建議聯繫人工客服</li>
+                    </ul>
+                    
+                    <h4>技術實現</h4>
+                    <ul>
+                        <li>使用 Vue 3 開發，編譯成單一 JavaScript 檔案（約 200KB）</li>
+                        <li>透過 WebSocket 或 HTTP 與後端 API 通訊</li>
+                        <li>支援 CORS，可嵌入任何網域的網站</li>
+                        <li>介面樣式隔離，不會影響原網站的 CSS</li>
+                    </ul>
+                    
+                    <div class="visual-placeholder">
+                        <p>截圖待補充：需要聊天介面的截圖，展示實際的對話畫面</p>
+                    </div>
+                </section>
+                
+                <section id="voice-service">
+                    <h3>AI 語音客服功能（第二階段）</h3>
+                    
+                    <p>語音客服功能讓客戶可以用更自然的方式與系統互動：</p>
+                    
+                    <h4>語音互動功能</h4>
+                    <ul>
+                        <li>語音輸入：點擊麥克風按鈕即可開始說話</li>
+                        <li>自然語音回應：AI 用流暢的語音回答客戶問題</li>
+                        <li>文字/語音模式切換：客戶可隨時切換偏好的互動方式</li>
+                        <li>語音中斷處理：支援客戶隨時打斷並提出新問題</li>
+                    </ul>
+                    
+                    <h4>技術方案（評估中）</h4>
+                    <p>目前正在評估以下技術方案，將根據技術發展選擇最適合的：</p>
+                    <ul>
+                        <li><strong>方案一</strong>：OpenAI Real-time API（等待暑期新模型發布）</li>
+                        <li><strong>方案二</strong>：Eleven Labs 語音合成技術</li>
+                        <li><strong>方案三</strong>：傳統架構 STT + LLM + TTS 組合</li>
+                        <li>最終方案將考慮：回應速度、語音自然度、成本效益、整合複雜度</li>
+                    </ul>
+                    
+                    <h4>預期效果</h4>
+                    <ul>
+                        <li>降低客戶使用門檻，特別是年長客戶</li>
+                        <li>提高互動效率，語音溝通比打字快 3-5 倍</li>
+                        <li>創造更人性化的服務體驗</li>
+                    </ul>
+                    
+                    <div class="visual-placeholder">
+                        <p>截圖待補充：需要語音介面的概念圖或流程圖</p>
+                    </div>
+                </section>
+                
+                <section id="admin-dashboard">
+                    <h3>管理後台功能</h3>
+                    
+                    <p>管理後台讓康和可以設定和管理 AI 客服系統：</p>
+                    
+                    <h4>文件管理</h4>
+                    <ul>
+                        <li>上傳康和的相關文件（支援 PDF、TXT、DOCX 格式）</li>
+                        <li>檢視已上傳的文件列表</li>
+                        <li>為每個文件設定摘要（summary）</li>
+                        <li>刪除或更新文件內容</li>
+                        <li>系統自動產生文件索引供 AI 使用</li>
+                    </ul>
+                    
+                    <h4>AI 測試功能</h4>
+                    <ul>
+                        <li>在後台直接測試 AI 的回答效果</li>
+                        <li>調整 AI 的回答風格（正式/親切）</li>
+                        <li>設定無法回答時的預設回覆</li>
+                        <li>查看 AI 使用了哪些文件來生成答案</li>
+                    </ul>
+                    
+                    <h4>對話記錄</h4>
+                    <ul>
+                        <li>查看所有客戶對話歷史</li>
+                        <li>搜尋特定關鍵字的對話</li>
+                        <li>匯出對話記錄（CSV 格式）</li>
+                        <li>分析常見問題統計</li>
+                    </ul>
+                    
+                    <h4>系統設定</h4>
+                    <ul>
+                        <li>自訂聊天視窗的顏色和標題</li>
+                        <li>設定營業時間提示</li>
+                        <li>管理 API Key</li>
+                        <li>設定允許使用的網域（安全白名單）</li>
+                    </ul>
+                    
+                    <div class="visual-placeholder">
+                        <p>截圖待補充：需要管理後台的介面截圖，展示主要功能頁面</p>
+                    </div>
+                </section>
+            </section>
+            
+            <section id="part3" class="architecture">
+                <h2>第三部分：技術實現</h2>
+                <section id="tech-stack">
+                    <h3>使用的技術棧</h3>
+                    
+                    <h4>前端技術</h4>
+                    <ul>
+                        <li><strong>聊天小工具</strong>：Vue 3 + TypeScript，使用 Vite 打包成單一 JS 檔案</li>
+                        <li><strong>管理後台</strong>：Vue 3 + Element Plus UI 框架，Vue Router 處理頁面路由</li>
+                        <li><strong>狀態管理</strong>：Pinia（Vue 官方推薦的狀態管理工具）</li>
+                        <li><strong>HTTP 請求</strong>：Axios 處理 API 通訊</li>
+                    </ul>
+                    
+                    <h4>後端技術</h4>
+                    <ul>
+                        <li><strong>伺服器框架</strong>：Node.js + Express.js</li>
+                        <li><strong>程式語言</strong>：TypeScript（提供型別檢查，減少錯誤）</li>
+                        <li><strong>資料庫</strong>：PostgreSQL（儲存對話記錄、用戶資料、文件內容）</li>
+                        <li><strong>認證機制</strong>：JWT（JSON Web Token）處理用戶登入狀態</li>
+                        <li><strong>檔案處理</strong>：Multer 處理檔案上傳，pdf-parse 解析 PDF 文件</li>
+                    </ul>
+                    
+                    <h4>AI 整合</h4>
+                    <ul>
+                        <li><strong>文字對話</strong>：Anthropic Claude 3.5 Sonnet API</li>
+                        <li><strong>實作方式</strong>：使用官方 SDK (@anthropic-ai/sdk)</li>
+                        <li><strong>回應模式</strong>：支援一般回應和串流回應（Server-Sent Events）</li>
+                    </ul>
+                    
+                    <h4>語音技術（第二階段）</h4>
+                    <ul>
+                        <li><strong>語音識別</strong>：評估中（Web Speech API / 第三方服務）</li>
+                        <li><strong>語音合成</strong>：評估中（Eleven Labs / OpenAI TTS / Edge TTS）</li>
+                        <li><strong>即時對話</strong>：研究 OpenAI Real-time API 與工具整合方案</li>
+                        <li><strong>備選方案</strong>：傳統 STT → LLM → TTS 管線架構</li>
+                    </ul>
+                </section>
+                
+                <section id="architecture">
+                    <h3>系統架構圖</h3>
+                    
+                    <div class="architecture-diagram">
+                        <pre>
+┌─────────────────────────────────────┐
+│         客戶網站                     │
+│   ┌─────────────────────┐          │
+│   │  Chat Widget (Vue3) │          │
+│   └──────────┬──────────┘          │
+└──────────────┼─────────────────────┘
+               │ HTTPS API
+               ▼
+┌─────────────────────────────────────┐
+│      後端 API 服務器                 │
+│   ┌─────────────────────┐          │
+│   │   Express.js API    │          │
+│   │   - /api/chat       │          │
+│   │   - /api/documents  │          │
+│   │   - /api/admin      │          │
+│   └──────────┬──────────┘          │
+└──────────────┼─────────────────────┘
+               │
+    ┌──────────┴──────────┐
+    ▼                     ▼
+┌─────────┐         ┌──────────────┐
+│PostgreSQL│         │Anthropic API │
+│ Database │         │  (Claude)    │
+└─────────┘         └──────────────┘
+                        </pre>
+                    </div>
+                </section>
+                
+                <section id="tech-details">
+                    <h3>技術細節說明</h3>
+                    
+                    <h4>對話處理流程</h4>
+                    <ol>
+                        <li>用戶在聊天視窗輸入問題</li>
+                        <li>前端將問題發送到後端 API（<code>POST /api/chat/message</code>）</li>
+                        <li>後端從記憶體載入對話歷史（最多 10 輪）</li>
+                        <li>組合 system instruction：包含文件索引（所有文件名稱和摘要）</li>
+                        <li>AI 根據問題和文件摘要，使用 MCP 工具查詢相關文件</li>
+                        <li>基於查詢結果生成回答</li>
+                        <li>儲存對話到資料庫</li>
+                        <li>回傳答案給前端顯示</li>
+                    </ol>
+                    
+                    <h4>MCP (Model Context Protocol) 說明</h4>
+                    <ul>
+                        <li>AI 可以主動使用 MCP 工具與資料庫互動</li>
+                        <li>MCP 工具提供的功能：
+                            <ul>
+                                <li>列出所有可用文件</li>
+                                <li>讀取特定文件內容</li>
+                                <li>搜尋文件中的關鍵資訊</li>
+                            </ul>
+                        </li>
+                        <li>AI 透過文件摘要判斷哪些文件可能包含答案</li>
+                    </ul>
+                    
+                    <h4>安全性設計</h4>
+                    <ul>
+                        <li>API Key 認證：所有請求需要有效的 API Key</li>
+                        <li>CORS 設定：只允許白名單內的網域存取</li>
+                        <li>輸入驗證：使用 express-validator 檢查所有輸入</li>
+                        <li>SQL 注入防護：使用參數化查詢</li>
+                        <li>XSS 防護：前端自動轉義所有用戶輸入</li>
+                    </ul>
+                    
+                    <h4>效能優化</h4>
+                    <ul>
+                        <li>對話記憶體快取：使用 Map 結構暫存最近對話</li>
+                        <li>文件索引快取：AI system instruction 包含所有文件摘要，減少查詢次數</li>
+                        <li>前端資源壓縮：Widget 檔案使用 gzip 壓縮</li>
+                        <li>API 回應快取：相同問題 5 分鐘內不重複呼叫 AI</li>
+                    </ul>
+                    
+                    <h4>部署架構</h4>
+                    <ul>
+                        <li>單一 VPS 伺服器（2-4 核心 CPU，4-8GB RAM）</li>
+                        <li>使用 PM2 管理 Node.js 程序</li>
+                        <li>Nginx 反向代理處理 HTTPS</li>
+                        <li>Let's Encrypt 免費 SSL 憑證</li>
+                        <li>每日自動備份資料庫</li>
+                    </ul>
+                    
+                    <div class="visual-placeholder">
+                        <p>截圖待補充：需要更詳細的技術架構圖，顯示資料流向和各組件之間的關係</p>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>AI 客服系統專案 &copy; 2025 - 康和證券合作專案</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
